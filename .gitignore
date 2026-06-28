@@ -1,0 +1,13 @@
+target/
+.idea/
+*.iml
+.env
+.env.*
+!.env.example
+*.log
+logs/
+src/main/resources/application-local.yml
+src/main/resources/model/bge-reranker-model/*.onnx
+src/main/resources/model/bge-reranker-model/tokenizer.json
+# Original database dump contains conversations, signed URLs and historical runs.
+src/main/resources/sql/know_engine.sql
