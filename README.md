@@ -52,7 +52,9 @@ Java 路径均相对 `src/main/java/know/engine/`。
 
 ## 本地运行准备
 
-本轮完成源码整理，尚未验证完整部署和端到端运行。
+已提供独立 Compose 依赖配置，按 [本机运行指南](docs/local-runtime.md) 启动 MySQL、Redis、ES、MinIO，再运行 Java 和 React。
+
+已验证 Compose 四项依赖、Java 后端启动、列表接口及 TXT 上传存储。完整问答与复杂文档解析的待办见上述运行指南。
 
 1. 准备 JDK 21、Maven、MySQL、Redis、Elasticsearch、MinIO；复杂文档解析还需要兼容本项目调用方式的解析服务。
 2. 创建空数据库 `know_engine`，导入 `src/main/resources/sql/schema.sql`。该文件仅包含表结构；不要向已有业务数据库导入原始转储。

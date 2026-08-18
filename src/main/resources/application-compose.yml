@@ -1,0 +1,40 @@
+# Java runs on the host; Compose publishes isolated localhost ports.
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:13306/know_engine?rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: know_engine
+    password: know-engine-local
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 16380
+  redis:
+    redisson:
+      config: |
+        singleServerConfig:
+          address: "redis://127.0.0.1:16380"
+          connectionMinimumIdleSize: 2
+          connectionPoolSize: 16
+        codec: !<org.redisson.codec.JsonJacksonCodec> {}
+
+elasticsearch:
+  host: http://127.0.0.1:19200
+
+minio:
+  url: http://127.0.0.1:19090
+  endpoint: http://127.0.0.1:19090
+  access-key: knowengine
+  secret-key: know-engine-local
+  bucketName: know-engine
+
+dashscope:
+  api-key: ${DASHSCOPE_API_KEY:NOT_CONFIGURED}
+
+langchain4j:
+  open-ai:
+    chat-model:
+      log-requests: false
+      log-responses: false
+    streaming-chat-model:
+      log-requests: false
+      log-responses: false
