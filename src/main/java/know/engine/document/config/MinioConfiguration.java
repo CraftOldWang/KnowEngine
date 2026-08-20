@@ -13,7 +13,7 @@ public class MinioConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(MinioConfiguration.class);
 
-    @Value("${minio.endpoint}")
+    @Value("${minio.url:${minio.endpoint}}")
     private String endpoint;
 
     @Value("${minio.access-key}")

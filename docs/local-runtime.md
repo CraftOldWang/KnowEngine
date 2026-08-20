@@ -1,5 +1,17 @@
 # 本机运行：Compose 依赖 + Java + React
 
+## 推荐：整套容器一键运行
+
+Docker Desktop 启动后，在项目根目录运行 `./start.ps1`，等待健康检查完成，再打开 http://127.0.0.1:18080 。前端通过 Nginx 访问容器内 Java，Java 连接本项目四项依赖。
+
+首次启动会下载镜像并在构建容器里安装 Maven/npm 依赖；本机无需运行 Java、Maven 或 Node。后续启动复用构建缓存。停止使用 `./stop.ps1`，数据卷保留。查看日志使用 `docker compose --profile app logs --tail 100 backend`。
+
+模型 Key 可填入被忽略的 `application-local.yml`；也可在根目录 `.env` 填 `DASHSCOPE_API_KEY=...`（使用环境变量时删除 local 文件中的占位覆盖项）。BGE 两个模型文件仍需放在原模型目录，由容器只读挂载。两者都不会进入镜像或 Git。
+
+容器构建配置：根目录 `Dockerfile`、`frontend/Dockerfile`、`deploy/nginx.conf`。`app` profile 启用前后端；不加 profile 时保留下面的“仅依赖 + 本机调试”用法。
+
+PDF/Word 解析服务仍待兼容版本接入；当前基础 Compose 不包含 MinerU。先用 TXT 跑通上传、切分及问答；AI 功能需要有效模型 Key。
+
 ## 1. 启动依赖
 
 在项目根目录运行：
@@ -72,6 +84,8 @@ docker compose down          # 移除本项目容器和网络，保留命名数�
 Java/React 在各自终端用 Ctrl+C 停止。日常操作不要加 `down -v`，该选项会删除数据卷。
 
 ## 本轮验证
+
+- 整套容器版：Java 与 React 镜像构建通过，后端 BGE 模型加载成功；18080 页面与代理接口返回正常，TXT 上传及 MinIO 下载通过。
 
 - 四个 Compose 服务健康检查通过，MySQL 七张表自动初始化完成。
 - Java 后端已在 8009 启动，React 已在 5173 运行。

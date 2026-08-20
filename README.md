@@ -54,6 +54,8 @@ Java 路径均相对 `src/main/java/know/engine/`。
 
 已提供独立 Compose 依赖配置，按 [本机运行指南](docs/local-runtime.md) 启动 MySQL、Redis、ES、MinIO，再运行 Java 和 React。
 
+也可执行 `./start.ps1` 将前后端与依赖一起启动到 Docker，访问 `http://127.0.0.1:18080`；`./stop.ps1` 停止本项目容器并保留数据。
+
 已验证 Compose 四项依赖、Java 后端启动、列表接口及 TXT 上传存储。完整问答与复杂文档解析的待办见上述运行指南。
 
 1. 准备 JDK 21、Maven、MySQL、Redis、Elasticsearch、MinIO；复杂文档解析还需要兼容本项目调用方式的解析服务。
