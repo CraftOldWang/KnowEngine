@@ -97,6 +97,9 @@ public class ChatService {
     @Value("${langchain4j.open-ai.streaming-chat-model.model-name}")
     private String commonChatModelName;
 
+    @Value("${ai.rag-model:qwen3.7-flash}")
+    private String ragChatModelName;
+
     /**
      * 固定配置的 KNN 向量检索器，启动时创建一次后复用
      */
@@ -433,7 +436,7 @@ public class ChatService {
                 () -> chatMessageService.updateContent(
                         chatParam.assistantMessageId(),
                         contentBuilder.toString(),
-                        AiModelConfig.RAG_CHAT_MODEL_NAME
+                        ragChatModelName
                 ));
 
         // 三参数 subscribe：onNext / onError / onComplete 分别对应 sink 的 next、error、complete

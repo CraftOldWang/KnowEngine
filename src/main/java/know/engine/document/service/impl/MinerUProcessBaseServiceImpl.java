@@ -280,10 +280,10 @@ public abstract class MinerUProcessBaseServiceImpl implements FileProcessService
         return result.toString();
     }
 
-    @Value("${langchain4j.open-ai.chat-model.api-key}")
+    @Value("${vision.api-key:${dashscope.api-key}}")
     private String chatModelApiKey;
 
-    @Value("${langchain4j.open-ai.chat-model.base-url}")
+    @Value("${vision.base-url:https://dashscope.aliyuncs.com/compatible-mode/v1}")
     private String chatModelBaseUrl;
 
     /**

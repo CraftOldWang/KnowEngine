@@ -26,6 +26,15 @@ import java.util.Map;
 @Configuration
 public class AiModelConfig {
 
+    @Value("${ai.title-model:qwen3.7-flash}")
+    private String titleModelName;
+
+    @Value("${ai.rag-model:qwen3.7-flash}")
+    private String ragModelName;
+
+    @Value("${ai.qwen-parameters:true}")
+    private boolean qwenParameters;
+
     /** RAG 回答专用流式模型名称，供落库与 Bean 配置共用 */
     public static final String RAG_CHAT_MODEL_NAME = "qwen3.7-flash";
 
@@ -44,11 +53,11 @@ public class AiModelConfig {
                 // 复用 yml 中的 OpenAI 兼容接口地址
                 .baseUrl(baseUrl)
                 // 标题生成使用速度更快的轻量模型，降低成本和延迟
-                .modelName("qwen3.7-flash")
+                .modelName(titleModelName)
                 // 标题允许适当变化，温度高于 RAG 回答模型
                 .temperature(0.7)
                 // 关闭思考模式，直接返回标题文本
-                .customParameters(Map.of("enable_thinking", false))
+                .customParameters(qwenParameters ? Map.of("enable_thinking", false) : Map.of())
                 // 创建非流式 ChatModel Bean
                 .build();
     }
@@ -69,16 +78,16 @@ public class AiModelConfig {
                 // 复用 yml 中的 OpenAI 兼容接口地址
                 .baseUrl(baseUrl)
                 // RAG 检索增强之后的对话生成 最终回答使用能力较强的模型，提升知识问答质量
-                .modelName(RAG_CHAT_MODEL_NAME)
+                .modelName(ragModelName)
                 // 开启请求/响应日志，便于排查与模型交互的内容
-                .logRequests(true)
-                .logResponses(true)
+                .logRequests(false)
+                .logResponses(false)
                 // 使用较低温度，降低知识问答中的随机性
                 .temperature(0.2)
                 // 限制候选词采样范围，使回答更稳定
                 .topP(0.9)
                 // 关闭思考模式，直接流式输出最终答案
-                .customParameters(Map.of("enable_thinking", false))
+                .customParameters(qwenParameters ? Map.of("enable_thinking", false) : Map.of())
                 // 创建流式 StreamingChatModel Bean
                 .build();
     }
