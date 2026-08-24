@@ -28,7 +28,7 @@ minio:
   bucketName: know-engine
 
 dashscope:
-  api-key: ${DASHSCOPE_API_KEY:NOT_CONFIGURED}
+  api-key: ${KE_DASHSCOPE_API_KEY:${DASHSCOPE_API_KEY:NOT_CONFIGURED}}
 
 langchain4j:
   open-ai:

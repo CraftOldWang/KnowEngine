@@ -6,7 +6,7 @@ services:
     build: .
     environment:
       SPRING_PROFILES_ACTIVE: compose,container
-      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-NOT_CONFIGURED}
+      KE_DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-NOT_CONFIGURED}
       MINERU_URL: ${MINERU_URL:-http://host.docker.internal:8000}
       SPRING_CONFIG_ADDITIONAL_LOCATION: optional:file:/app/config/application-local.yml
     volumes:

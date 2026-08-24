@@ -415,11 +415,12 @@ public class DocumentProcessServiceImpl implements DocumentProcessService {
             return null;
         }
         // URL格式: http://endpoint/bucketName/objectName
-        int lastSlashIndex = url.lastIndexOf(bucketName) + bucketName.length();
-        if (lastSlashIndex == -1 || lastSlashIndex == url.length() - 1) {
+        String bucketPath = "/" + bucketName + "/";
+        int bucketStart = url.indexOf(bucketPath, Math.max(0, url.indexOf("://") + 3));
+        if (bucketStart < 0 || bucketStart + bucketPath.length() >= url.length()) {
             return null;
         }
-        return url.substring(lastSlashIndex + 1);
+        return url.substring(bucketStart + bucketPath.length());
     }
 
     /**
