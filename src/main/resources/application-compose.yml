@@ -20,6 +20,11 @@ spring:
 elasticsearch:
   host: http://127.0.0.1:19200
 
+file:
+  parse:
+    api:
+      url: http://127.0.0.1:18000
+
 minio:
   url: http://127.0.0.1:19090
   endpoint: http://127.0.0.1:19090
